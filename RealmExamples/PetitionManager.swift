@@ -12,7 +12,38 @@ import SwiftyJSON
 
 public class PetitionManager {
   
-  func loadPetitions(realm: Realm) {
+  func loadPetitionsTo(realm: Realm) {
+    
+    let petitionJson = loadPetitionsFromJson()
+    if let petitionData = petitionJson?["data"].array {
+      
+      realm.beginWrite()
+      
+      for petitionJson in petitionData {
+        let petition = Petition()
+        petition.initWith(json: petitionJson)
+        // Create petiton OR update if the PK exists
+        realm.add(petition, update: true)
+      }
+      
+      try! realm.commitWrite()
+    }
+  }
+  
+  func getAllPetitions(realm: Realm) -> Results<Petition>? {
+    return realm.objects(Petition.self)
+  }
+  
+  func getPetitionsWith(state: String, realm: Realm) -> Results<Petition>? {
+    return realm.objects(Petition.self).filter("petitionState == \(state)")
+  }
+  
+  func getPetitionsOrder(sortKey: String, realm: Realm) -> Results<Petition>? {
+    return realm.objects(Petition.self).sorted(byProperty: "\(sortKey)")
+  }
+  
+  // Mock data returned from network
+  private func loadPetitionsFromJson() -> JSON? {
     
     if let path = Bundle.main.path(forResource: "petitions", ofType: "json") {
       
@@ -24,31 +55,15 @@ public class PetitionManager {
           
           // Serialised JSON Data
           let petitionJson = JSON(jsonResult)
-          
-          if let petitionData = petitionJson["data"].array {
-            
-            realm.beginWrite()
-            
-            for petitionJson in petitionData {
-              let petition = Petition()
-              petition.initWith(json: petitionJson)
-              realm.add(petition)
-            }
-            
-            try! realm.commitWrite()
-          }
+          return petitionJson
         }
         
       } catch {
         print("Error")
       }
     }
-  }
-  
-    func getAllPetitions(realm: Realm) -> Results<Petition>? {
-      
-      let allStoredPetitions = realm.objects(Petition.self)
-      return allStoredPetitions
+    
+    return nil
   }
   
 }
