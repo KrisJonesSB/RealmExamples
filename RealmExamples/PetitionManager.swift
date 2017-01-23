@@ -8,10 +8,11 @@
 
 import Foundation
 import RealmSwift
+import SwiftyJSON
 
-class PetitionManager {
+public class PetitionManager {
   
-  func getPetitions()  {
+  func loadPetitions(realm: Realm) {
     
     if let path = Bundle.main.path(forResource: "petitions", ofType: "json") {
       
@@ -22,17 +23,32 @@ class PetitionManager {
         if let jsonResult: NSDictionary = try JSONSerialization.jsonObject(with: jsonData as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
           
           // Serialised JSON Data
+          let petitionJson = JSON(jsonResult)
           
-          print(jsonResult)
-          
+          if let petitionData = petitionJson["data"].array {
+            
+            realm.beginWrite()
+            
+            for petitionJson in petitionData {
+              let petition = Petition()
+              petition.initWith(json: petitionJson)
+              realm.add(petition)
+            }
+            
+            try! realm.commitWrite()
+          }
         }
         
       } catch {
         print("Error")
       }
     }
-    
-    
+  }
+  
+    func getAllPetitions(realm: Realm) -> Results<Petition>? {
+      
+      let allStoredPetitions = realm.objects(Petition.self)
+      return allStoredPetitions
   }
   
 }

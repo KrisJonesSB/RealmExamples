@@ -10,7 +10,6 @@ import Foundation
 import RealmSwift
 import SwiftyJSON
 
-
 class Petition : Object {
   
   
@@ -42,4 +41,5 @@ class Petition : Object {
       self.governmentResponse = governmentResponse
     }
   }
+
 }

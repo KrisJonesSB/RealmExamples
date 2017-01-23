@@ -21,7 +21,7 @@
 		FCCA38F81E3560F6004614EE /* GovernmentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCA38F71E3560F6004614EE /* GovernmentResponse.swift */; };
 		FCCA38FA1E3563F5004614EE /* PetitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCA38F91E3563F5004614EE /* PetitionManager.swift */; };
 		FCCA39021E35F6BD004614EE /* RealmExamplesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCA39011E35F6BD004614EE /* RealmExamplesTests.swift */; };
-		FCCA39091E35F71D004614EE /* PetitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCA38F91E3563F5004614EE /* PetitionManager.swift */; };
+		FCCA390B1E35FB80004614EE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCA38F51E355F9B004614EE /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,7 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCCA39021E35F6BD004614EE /* RealmExamplesTests.swift in Sources */,
-				FCCA39091E35F71D004614EE /* PetitionManager.swift in Sources */,
+				FCCA390B1E35FB80004614EE /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +609,7 @@
 				FCCA39081E35F6BD004614EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
