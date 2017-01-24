@@ -44,15 +44,15 @@ class RealmExamplesTests: XCTestCase {
     let petitionManager = PetitionManager()
     petitionManager.loadPetitionsTo(realm:realm)
     let closedPetitions = petitionManager.getPetitionsWith(state: "closed", realm: realm)
-    XCTAssertEqual(50, closedPetitions?.count, "Count should be 50")
+    XCTAssertEqual(40, closedPetitions?.count, "40 Petitions should be closed")
   }
   
   func testGetPetitionsWithStateOpenStoredByDate() {
     let realm = try! Realm()
     let petitionManager = PetitionManager()
     petitionManager.loadPetitionsTo(realm:realm)
-    let closedPetitions = petitionManager.getPetitionsOrder(sortKey: "createdAt", realm: realm)
-    XCTAssertEqual(50, closedPetitions?.count, "Count should be 50")
+    let closedPetitions = petitionManager.getPetitionsWith(state: "open", sortKey: "createdAt", realm: realm)
+    XCTAssertEqual(10, closedPetitions?.count, "10 Petitions should be open")
   }
   
   func testGetPetitionsWithInMemoryRealm() {

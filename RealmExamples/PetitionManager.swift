@@ -35,11 +35,11 @@ public class PetitionManager {
   }
   
   func getPetitionsWith(state: String, realm: Realm) -> Results<Petition>? {
-    return realm.objects(Petition.self).filter("petitionState == \(state)")
+    return realm.objects(Petition.self).filter("petitionState == '\(state)'")
   }
   
-  func getPetitionsOrder(sortKey: String, realm: Realm) -> Results<Petition>? {
-    return realm.objects(Petition.self).sorted(byProperty: "\(sortKey)")
+  func getPetitionsWith(state: String, sortKey: String, realm: Realm) -> Results<Petition>? {
+    return realm.objects(Petition.self).filter("petitionState == '\(state)'").sorted(byProperty: "\(sortKey)")
   }
   
   // Mock data returned from network
